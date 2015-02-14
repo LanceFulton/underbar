@@ -90,10 +90,45 @@
     return result;
   };
 
+/*
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    var result = collection;
+    var antiResult = _.filter(collection, test);
+    for (var i=0 ; i<antiResult.length ; i++){
+      var badElement = result.indexOf(antiResult[i]);
+      result.splice(badElement, 1);
+    }
+    return result;
+  };
+*/
+/*
+  // Return all elements of an array that don't pass a truth test.
+  _.reject = function(collection, test) {
+    var result = [];
+    var antiResult = _.filter(collection, test);
+    for (var i=0 ; i<collection.length ; i++){
+      for (var j=0 ; j<antiResult.length ; j++){
+        if (collection[i] !== antiResult[j]){
+          result.push(collection[i]);
+        }
+      }
+    }
+    return result;
+  };
+*/
+
+  // Return all elements of an array that don't pass a truth test.
+  _.reject = function(collection, test) {
+    var result = [];
+    for (var i=0 ; i<collection.length ; i++){
+      if (!test(collection[i])){
+        result.push(collection[i]);
+      }
+    }
+    return result;
   };
 
   // Produce a duplicate-free version of the array.
