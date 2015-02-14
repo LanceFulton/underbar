@@ -186,24 +186,44 @@
       return accumulator;
     }
   };
-/*
-  _.reduce = function(collection, iterator, accumulator) {
-    if (!accumulator){
-      var accumulator = collection[0]
-      collec
+
+  _.reduceForObj = function(collection, iterator, accumulator) {
+    if (typeof accumulator !== 'undefined'){
+      for (var key in collection) {
+        var tempResult = iterator(accumulator, collection[key]);
+        accumulator = tempResult;
+      }
+      return accumulator;
+    } else {
+      var accumulator = collection[0];
+      for (var key in collection) {
+        var tempResult = iterator(accumulator, collection[key]);
+        accumulator = tempResult;
+      }
+      return accumulator;
     }
-  }
-*/
+  };
+
+
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
     // TIP: Many iteration problems can be most easily expressed in
     // terms of reduce(). Here's a freebie to demonstrate!
-    return _.reduce(collection, function(wasFound, item) {
-      if (wasFound) {
-        return true;
-      }
-      return item === target;
-    }, false);
+    if (Array.isArray(collection)){
+      return _.reduce(collection, function(wasFound, item) {
+        if (wasFound) {
+          return true;
+        }
+        return item === target;
+      }, false);
+    } else {
+            return _.reduceForObj(collection, function(wasFound, item) {
+        if (wasFound) {
+          return true;
+        }
+        return item === target;
+      }, false);
+    }
   };
 
 
