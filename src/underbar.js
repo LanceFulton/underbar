@@ -347,20 +347,33 @@
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
+  // _.memoize = function(func) {
+  //   var result;
+  //   return function() {
+  //     var store = {};
+  //     for (var i=0 ; i<arguments.length ; i++) {
+  //       if (store[arguments[i]] !== undefined) {
+  //         return store[arguments];
+  //       } else {
+  //         result = func.apply(this, arguments);
+  //         store[arguments[i]] = result;
+  //         return result
+  //       }
+  //     }
+  //   };
+  // };
+
   _.memoize = function(func) {
-    var result;
-    return function() {
-      var store = {};
-      for (var i=0 ; i<arguments.length ; i++) {
-        if (store[arguments[i]] !== undefined) {
-          return store[arguments];
-        } else {
-          result = func.apply(this, arguments);
-          store[arguments[i]] = result;
-          return result
-        }
+    var store = {};
+    var result = function(args) {
+      if (store.hasOwnProperty(args)) {
+        return store[args];
+      } else {
+        store[args] = func.apply(this, arguments);
+        return store[args];
       }
     };
+    return result;
   };
 
   // Delays a function for the given number of milliseconds, and then calls
