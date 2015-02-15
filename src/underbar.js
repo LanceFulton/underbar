@@ -230,6 +230,9 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    if (typeof iterator == 'undefined') {
+      var iterator = _.identity;
+    }
     if (collection == null) {
     return true;
     }
@@ -250,6 +253,9 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if (typeof iterator == 'undefined') {
+      var iterator = _.identity;
+    }
     if (collection == null) {
     return true;
     }
