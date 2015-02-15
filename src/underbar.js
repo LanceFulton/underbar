@@ -420,6 +420,11 @@
         newArray.unshift(array[i]);
       }
     }
+    var arrayClone = array;
+    var newArrayClone = newArray;
+    while (arrayClone.toString() == newArrayClone.toString()){         /*in case random sameness*/
+      _.shuffle(newArray)
+    }
     return newArray;
   };
 
